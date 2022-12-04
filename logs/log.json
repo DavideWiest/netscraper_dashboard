@@ -4,7 +4,37 @@
             "Status": true,
             "DateTime": "2022-12-02T17:42:03.9619635Z",
             "URL": "https://wikipedia.org",
+            "ResponseTime": 748
+        },
+        {
+            "Status": true,
+            "DateTime": "2022-12-02T17:42:04.9619635Z",
+            "URL": "https://wikipedia.org",
+            "ResponseTime": 400
+        },
+        {
+            "Status": false,
+            "DateTime": "2022-12-02T17:42:06.9619635Z",
+            "URL": "https://wikipedia.org",
             "ResponseTime": 290.0
+        },
+        {
+            "Status": true,
+            "DateTime": "2022-12-02T17:42:10.9619635Z",
+            "URL": "https://wikipedia.org",
+            "ResponseTime": 290.0
+        },
+        {
+            "Status": false,
+            "DateTime": "2022-12-02T17:42:11.9619635Z",
+            "URL": "https://wikipedia.org",
+            "ResponseTime": 50
+        },
+        {
+            "Status": true,
+            "DateTime": "2022-12-02T17:42:12.4619635Z",
+            "URL": "https://wikipedia.org",
+            "ResponseTime": 385
         }
     ]
 }

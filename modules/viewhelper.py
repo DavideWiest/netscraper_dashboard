@@ -8,7 +8,7 @@ class ViewHelper():
     def __init__(self, base_path, omni_content_files=[]):
         self.base_path = base_path
         self.omni_content_files = omni_content_files + ["b_data"]
-        self.std_title_clause = " - FINsights"
+        self.std_title_clause = " - Netscraper"
         self.lang_independant_files = ("credentials", "data", "b_credentials", "b_data")
         self.allowed_languages = ("en", "de")
         self.base_content_files = ("b_credentials", "b_data")
@@ -50,7 +50,7 @@ class ViewHelper():
 
     def choose_lang(self, request):
         return "de"
-        
+
         language = translation.get_language_from_request(request)
 
         # first priority
@@ -105,10 +105,10 @@ class ViewHelper():
 
         return request.session, language
 
-    def handle_requestdata(self, request, l):
+    def handle_requestdata(self, request):
         request.session, l = self.choose_lang(request)
             
-        if "language" in request.sesison and request.session.get("language") not in self.allowed_languages:
+        if "language" in request.session and request.session.get("language") not in self.allowed_languages:
             del request.session["language"]
 
         return request.session, l

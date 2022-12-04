@@ -1,6 +1,7 @@
 from pathlib import Path
 import json
 import psutil
+from datetime import datetime
 
 class LogReader():
     def __init__(self, logdir):
@@ -14,17 +15,59 @@ class LogReader():
             file = json.load(f)
         return file
 
+    def get_whole_jsonlog(self):
+        jsonlog = self.openlog(self.json_path)
 
-    def get_stats(self):
+        jsonlog = jsonlog["Documents"][:100]
+        for i, site in enumerate(jsonlog):
+            dt = site["DateTime"].replace("T", " ").split(".")[0]
+            jsonlog[i]["DateTime"] = dt
+            dt_obj = datetime.strptime(dt, "%Y-%m-%d %H:%M:%S")
+            jsonlog[i]["dt_obj"] = dt_obj
+
+            if i != 0:
+                dt_dif = (dt_obj - jsonlog[i-1]["dt_obj"]).total_seconds()
+                dt_dif = float(f"{dt_dif:.3f}")
+            else:
+                dt_dif = 0.0
+
+            jsonlog[i]["dt_dif"] = dt_dif
+
+        for i in range(len(jsonlog)):
+            del jsonlog[i]["dt_obj"]
+
+        return jsonlog
+
+    def get_complete_stats(self):
         jsonlog = self.openlog(self.json_path)
         settings = self.openlog(self.settings_path)
         cstats = {
-            "cpu": f"{psutil.cpu_percent()}%",
-            "ram": f"{psutil.virtual_memory().percent}%"
+            "cpu": psutil.cpu_percent(),
+            "ram": psutil.virtual_memory().percent
         }
+
+        jsonlog = jsonlog["Documents"][:100]
+        for i, site in enumerate(jsonlog):
+            dt = site["DateTime"].replace("T", " ").split(".")[0]
+            jsonlog[i]["DateTime"] = dt
+            dt_obj = datetime.strptime(dt, "%Y-%m-%d %H:%M:%S")
+            jsonlog[i]["dt_obj"] = dt_obj
+
+            if i != 0:
+                dt_dif = (dt_obj - jsonlog[i-1]["dt_obj"]).total_seconds()
+                dt_dif = float(f"{dt_dif:.3f}")
+            else:
+                dt_dif = 0.0
+
+            jsonlog[i]["dt_dif"] = dt_dif
+
+        for i in range(len(jsonlog)):
+            del jsonlog[i]["dt_obj"]
+
+        cstats["average_ttc"] = sum(jsonlog[i]["dt_dif"] for i in range(len(jsonlog))) / len(jsonlog)
 
         return {
             "log": jsonlog,
             "settings": settings,
-            "pc": cstats
+            "comp": cstats
         }

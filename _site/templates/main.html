@@ -6,8 +6,42 @@
 
 {% block htmlcontents %}
 
+<div id="settings-section">
+    
+</div>
+<div id="comp-section">
+    <div class="w-20 h-20">
+        <canvas id="cpu_usage" class="graphic" width="100" height="100"></canvas>
+    </div>
+    <div class="w-20 h-20">
+        <canvas id="gpu_usage" class="graphic" width="100" height="100"></canvas>
+    </div>
+
+</div>
+<div id="log-section">
+    {% for logentry in d.log %}
+    <div id="logentry">
+        <div id="ttc-wrapper">
+
+        </div>
+        <div id="keyinfo-wrapper">
+
+        </div>
+        <div id="otherinfo-wrapper">
+
+        </div>
+    </div>
+    {% endfor %}
+</div>
 
 
+{{ d.settings }}
+<br>
+<br>
+{{ d.comp }}
+<br>
+<br>
+{{ d.log }}
 
 
 
@@ -16,6 +50,18 @@
 
 {% block scripts %}
 
-<script src="{% static 'js/main.js' %}"></script>
+{{ d.comp|json_script:"compJS" }}
+
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.0.1/chart.min.js" type="module"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.0.1/Chart.bundle.min.js"></script>
+
+<script>
+    var compdata = JSON.parse(document.getElementById('compJS').textContent);
+    var cpu_usage = compdata["cpu"]
+    var gpu_usage = compdata["ram"]
+
+</script>
+
+<script src="{% static 'js/main.js' %}" type="module"></script>
 
 {% endblock %}
