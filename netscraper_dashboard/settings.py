@@ -25,8 +25,8 @@ hostname = socket.gethostname()
 
 def handle_production():
     "Handle execution to make application production ready"
-    os.chdir('/var/www/html/PROJECT_NAME/PROJECT_NAME-master')
-    WSGI_APPLICATION = 'PROJECT_NAME.wsgi.application'
+    os.chdir('/var/www/html/netscraper_dashboard/netscraper_dashboard-master')
+    WSGI_APPLICATION = 'netscraper_dashboard.wsgi.application'
 
 
 with open(data_path, "r", encoding="utf") as f:
@@ -74,9 +74,7 @@ INSTALLED_APPS = [
 
     'rest_framework',
 
-    '_api',
     '_site',
-    'legal',
     'modules'
 ]
 
@@ -90,7 +88,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware'
 ]
 
-ROOT_URLCONF = 'PROJECT_NAME.urls'
+ROOT_URLCONF = 'netscraper_dashboard.urls'
 
 TEMPLATES = [
     {
