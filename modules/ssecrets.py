@@ -30,9 +30,9 @@ class EncryptionOperator():
 
 class DeploymentHelper():
     def __init__(self):
-        BASE_DIR = Path(__file__).resolve().parent.parent
+        self.BASE_DIR = Path(__file__).resolve().parent.parent
 
-        self.data_path = BASE_DIR / "settings.json"
+        self.data_path = self.BASE_DIR / "settings.json"
         self.hostname = socket.gethostname()
     
     def get_json_settings(self):
@@ -55,10 +55,10 @@ class DeploymentHelper():
         return run_settings, device_settings
 
     def handle_production(self):
-        pass
+        self.logdir_path = self.BASE_DIR.parent
 
     def handle_development(self):
-        pass
+        self.logdir_path = self.BASE_DIR / "logs"
 
     def compress_file(self, filepath, filename):
         fn_name, fn_type = filename.split(".")

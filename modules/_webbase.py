@@ -1,8 +1,7 @@
 # from modules.stockdatamanager import StockDataManager
 # from .db_structs import UserCol, StockCol, StocklistCol
-from .mongomanager import MongoManager
-
 from modules.ssecrets import PassManager, SecretOperator, DeploymentHelper
+from modules.logreader import LogReader
 # from modules.mailoperator import MailOperator
 # from modules.mailchimp import MailChimp
 
@@ -14,6 +13,8 @@ class Webbase():
         self.so = SecretOperator()
         self.pm = PassManager()
         self.secrets = self.so.get_json_secrets()
+
+        self.lr = LogReader(self.dh.logdir_path)
         
         # self.mm = MongoManager(self.secrets["db"]["con_str"], self.secrets["db"]["db_name"])
         

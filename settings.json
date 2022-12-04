@@ -20,7 +20,7 @@
     },
     "device_specific_settings": {
         "DESKTOP-9DUQODF": {
-            "log_folder": "C:/Users/DavWi/OneDrive/Desktop/storage/secrets/netscraper_dashboard/logs/"
+            "log_folder": "logs"
         },
         "respi": {
             "log_folder": ""

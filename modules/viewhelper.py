@@ -49,6 +49,8 @@ class ViewHelper():
         return {**bparams, **params}
 
     def choose_lang(self, request):
+        return "de"
+        
         language = translation.get_language_from_request(request)
 
         # first priority
@@ -73,7 +75,7 @@ class ViewHelper():
         if language != "de":
             language = "en"
 
-        # language = "en"
+        # language = "de"
 
         return language
 
