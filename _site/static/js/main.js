@@ -50,10 +50,9 @@ var deliveredData = {
 };
 
 var deliveredDataCPU = Object.assign({}, deliveredData);
-deliveredDataCPU.datasets[0].data = [cpu_usage, 1-cpu_usage]
+deliveredDataCPU.datasets[0].data = [cpu_usage, 100-cpu_usage]
 var deliveredDataGPU = Object.assign({}, deliveredData);
-deliveredDataGPU.datasets[0].data = [gpu_usage, 1-gpu_usage]
-
+deliveredDataGPU.datasets[0].data = [gpu_usage, 100-gpu_usage]
 
 var deliveredOpt = {
     cutoutPercentage: 88,
@@ -69,14 +68,23 @@ var deliveredOpt = {
     }
 };
 
-var chart = new Chart($('#cpu_usage'), {
-    type: 'RoundedDoughnut',
-    data: deliveredDataCPU,
-    options: deliveredOpt
-});
+function makechart1() {
+    var gpuchart = new Chart($('#gpu_usage'), {
+        type: 'RoundedDoughnut',
+        data: deliveredDataGPU,
+        options: deliveredOpt
+    });
+}
 
-var chart2 = new Chart($('#gpu_usage'), {
-    type: 'RoundedDoughnut',
-    data: deliveredDataGPU,
-    options: deliveredOpt
-});
+function makechart2() {
+    var cpuchart = new Chart($('#cpu_usage'), {
+        type: 'RoundedDoughnut',
+        data: deliveredDataCPU,
+        options: deliveredOpt
+    });
+}
+
+makechart2()
+makechart1()
+
+

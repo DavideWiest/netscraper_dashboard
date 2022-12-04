@@ -1,5 +1,6 @@
 {
     "StartedScraping": "2022-12-04T13:46:23.9393211+01:00",
     "SimultaneousPool": 100,
-    "ShouldRun": true
+    "ShouldRun": true,
+    "scrapescomplete": 1024058
 }

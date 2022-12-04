@@ -8,17 +8,87 @@
 
 <div id="settings-section">
     
-</div>
-<div id="comp-section">
-    <div class="w-20 h-20">
-        <canvas id="cpu_usage" class="graphic" width="100" height="100"></canvas>
+    <div class="w-screeen flex items-center justify-center">
+        <h1 class="text-2xl md:text-3xl max-w-lg text-center">
+            Over
+            <span id="scrapescompletenum" class="text-5xl md:text-6xl">{{ d.settings.scrapescomplete }}</span>
+            Websites scraped from all over the internet.
+        </h1>
     </div>
-    <div class="w-20 h-20">
-        <canvas id="gpu_usage" class="graphic" width="100" height="100"></canvas>
+    
+    {{ d.settings }}
+    
+<div class="flex flex-col my-8">
+    <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+        <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
+            <div class="overflow-hidden">
+                <table class="min-w-full">
+                    <tbody>
+                        <tr class="border-b">
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                Init. Zeitpunkt
+                            </td>
+                            <td id="initialization_time"
+                                class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+
+                            </td>
+                        </tr>
+                        <tr class="bg-white border-b">
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                Laufzeit
+                            </td>
+                            <td id="running_time" class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+
+                            </td>
+                        </tr>
+                        <tr class="bg-white border-b">
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                Success rate
+                            </td>
+                            <td id="profiles_scraped_successfully"
+                                class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+
+
+<div id="comp-section" class="my-8">
+    <h2 class="text-b700 my-8 text-2xl md:text-3xl px-6">
+        Computer worklad
+    </h2>
+    <div class="md:flex">
+        <div class="m-3">
+            <div class="w-16 md:w-24 h-16 md:h-24 m-4 mx-6">
+                <div class="flex justify-center items-center">
+                    <canvas id="cpu_usage" class="graphic" width="100" height="100"></canvas>
+                </div>
+            </div>
+            <h3 class="text-xl m-2">
+                <span class="text-b700 text-2xl">{{ d.comp.cpu }}%</span> CPU Usage
+            </h3>
+        </div>
+        <div class="m-3">
+            <div class="w-16 md:w-24 h-16 md:h-24 m-4 mx-6">
+                <div class="flex justify-center items-center">
+                    <canvas id="gpu_usage" class="graphic" width="100" height="100"></canvas>
+                </div>
+            </div>
+            <h3 class="text-xl m-2">
+                <span class="text-b700 text-2xl">{{ d.comp.ram }}%</span> GPU Usage
+            </h3>
+        </div>
     </div>
 
 </div>
-<div id="log-section">
+<div id="log-section" class="my-8">
     {% for logentry in d.log %}
     <div id="logentry">
         <div id="ttc-wrapper">
@@ -35,15 +105,68 @@
 </div>
 
 
-{{ d.settings }}
-<br>
-<br>
-{{ d.comp }}
-<br>
-<br>
-{{ d.log }}
-
-
+<div class="flex flex-col">
+    <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+        <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
+            <div class="overflow-hidden">
+                <h2 class="text-b700 my-8 text-2xl md:text-3xl px-6">
+                    Latest scraped sites
+                </h2>
+                <table class="min-w-full">
+                    <tbody>
+                        <thead class="border-b">
+                            <tr>
+                              <th scope="col" class="text-xs font-medium text-gray-900 px-6 py-4 text-left whitespace-nowrap">
+                                Completion time
+                              </th>
+                              <th scope="col" class="text-xs font-medium text-gray-900 px-6 py-4 text-left whitespace-nowrap">
+                                Response time
+                              </th>
+                            </tr>
+                          </thead>
+                        {% for logentry in d.log %}
+                        <tr class="border-b">
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900" style="width: 7rem;">
+                                <div class="w-full bg-sky-100 inline-block" style="width: 5rem;">
+                                    <div class="h-2 bg-primary rounded-full" style="width: calc(5rem * {{ logentry.dt_dif }} / 10000);"></div>
+                                </div>
+                                <p class="inline-block text-xs ml-1">{{ logentry.dt_dif }}ms</p>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900" style="width: 7rem;">
+                                <div class="w-full bg-sky-100 inline-block" style="width: 5rem;">
+                                    <div class="h-2 bg-primary rounded-full" style="width: calc(5rem * {{ logentry.ResponseTime }} / 1000);"></div>
+                                </div>
+                                <p class="inline-block text-xs ml-1">{{ logentry.ResponseTime }}ms</p>
+                            </td>
+                            <td class="text-lg text-gray-900 text-b500 px-6 py-4 whitespace-nowrap">
+                                {{ logentry.URL }}
+                            </td>
+                            <td class="text-sm text-gray-900 text-b500 px-6 py-4 whitespace-nowrap">
+                                <div id="flex" class="justify-center items-center">
+                                    {{ logentry.DateTime }}
+                                </div>
+                            </td>
+                            <td class="text-sm text-gray-900 text-b500 px-6 py-4 whitespace-nowrap">
+                                <div id="flex" class="justify-center items-center">
+                                    {% if logentry.Status == True %}
+                                        <p class="rounded-full px-5 py-2 bg-green-200 text-green-600 inline-block text-xs md:text-sm w-20 md:w-24 text-center">
+                                            Passed
+                                        </p>
+                                    {% else %}
+                                        <p class="rounded-full px-5 py-2 bg-red-200 text-red-800 inline-block text-xs md:text-sm w-20 md:w-24 text-center">
+                                            Failed
+                                        </p>
+                                    {% endif%}
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 {% endblock %}
@@ -56,6 +179,11 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.0.1/Chart.bundle.min.js"></script>
 
 <script>
+    function formatNum(elem) {
+        elem.innerHTML = Number(elem.innerText).toLocaleString(undefined, {minimumFractionDigits: 0})
+    }
+    formatNum(document.querySelector("#scrapescompletenum"))
+
     var compdata = JSON.parse(document.getElementById('compJS').textContent);
     var cpu_usage = compdata["cpu"]
     var gpu_usage = compdata["ram"]

@@ -46,6 +46,10 @@ class LogReader():
             "ram": psutil.virtual_memory().percent
         }
 
+        settings["StartedScraping"] = settings["StartedScraping"].replace("T", " ").split(".")[0]
+        dt = datetime.strptime(settings["StartedScraping"], "%Y-%m-%d %H:%M:%S")
+        settings["scraper_running_since"] = f"{(datetime.now() - dt).total_seconds() / 3600:2f}"
+
         jsonlog = jsonlog["Documents"][:100]
         for i, site in enumerate(jsonlog):
             dt = site["DateTime"].replace("T", " ").split(".")[0]
@@ -55,7 +59,7 @@ class LogReader():
 
             if i != 0:
                 dt_dif = (dt_obj - jsonlog[i-1]["dt_obj"]).total_seconds()
-                dt_dif = float(f"{dt_dif:.3f}")
+                dt_dif = round(dt_dif*1000)
             else:
                 dt_dif = 0.0
 

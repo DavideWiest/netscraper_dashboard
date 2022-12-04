@@ -25,5 +25,5 @@ def log(request):
 
     params["log"] = wb.lr.get_whole_jsonlog()
 
-    return render(request, "main.html", vh.build_params(["main"], params, l))
+    return render(request, "log.html", vh.build_params(["main"], params, l))
 
