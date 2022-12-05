@@ -8,54 +8,29 @@
 
 <div id="settings-section">
     
-    <div class="w-screeen flex items-center justify-center">
+    <div class="w-screeen flex flex-col items-center justify-center my-24 mt-28 md:mt-40">
         <h1 class="text-2xl md:text-3xl max-w-lg text-center">
             Over
             <span id="scrapescompletenum" class="text-5xl md:text-6xl">{{ d.settings.scrapescomplete }}</span>
             Websites scraped from all over the internet.
         </h1>
+        <p class="text-xl md:text-2xl max-w-lg text-center mt-8">
+            Scraper is 
+            {% if d.settings.ShouldRun == True %}
+            <span class="inline-block align-middle rounded-full py-1 bg-green-200 text-green-600 inline-block text-sm md:text-base w-16 md:w-20 text-center">
+                ONLINE
+            </span>
+            {% else %}
+            <span class="inline-block align-middle rounded-full py-1 bg-red-200 text-red-800 inline-block text-sm md:text-base w-15 md:w-20 text-center">
+                OFFLINE
+            </span>
+            {% endif %}
+            since <span class="text-b600">{{ d.settings.StartedScraping }}</span>, for <span class="text-b600">{{ d.settings.scraper_running_since }}</span> hours.
+        </p>
+        <p class="text-xl md:text-2xl max-w-lg text-center mt-8">
+            
+        </p>
     </div>
-    
-    {{ d.settings }}
-    
-<div class="flex flex-col my-8">
-    <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
-        <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
-            <div class="overflow-hidden">
-                <table class="min-w-full">
-                    <tbody>
-                        <tr class="border-b">
-                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                Init. Zeitpunkt
-                            </td>
-                            <td id="initialization_time"
-                                class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-
-                            </td>
-                        </tr>
-                        <tr class="bg-white border-b">
-                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                Laufzeit
-                            </td>
-                            <td id="running_time" class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-
-                            </td>
-                        </tr>
-                        <tr class="bg-white border-b">
-                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                Success rate
-                            </td>
-                            <td id="profiles_scraped_successfully"
-                                class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-</div>
 
 </div>
 

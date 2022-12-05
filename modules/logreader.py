@@ -36,6 +36,10 @@ class LogReader():
         for i in range(len(jsonlog)):
             del jsonlog[i]["dt_obj"]
 
+        for i in range(len(jsonlog)):
+            jsonlog[i]["ResponseTime"] = round(jsonlog[i]["ResponseTime"]) if jsonlog[i]["ResponseTime"] < 1000 else 1000
+            jsonlog[i]["dt_dif"] = round(jsonlog[i]["dt_dif"]*1000) if jsonlog[i]["dt_dif"] < 1000 else 1000
+
         return jsonlog
 
     def get_complete_stats(self):
@@ -69,6 +73,10 @@ class LogReader():
             del jsonlog[i]["dt_obj"]
 
         cstats["average_ttc"] = sum(jsonlog[i]["dt_dif"] for i in range(len(jsonlog))) / len(jsonlog)
+
+        for i in range(len(jsonlog)):
+            jsonlog[i]["ResponseTime"] = round(jsonlog[i]["ResponseTime"]) if jsonlog[i]["ResponseTime"] < 1000 else 1000
+            jsonlog[i]["dt_dif"] = round(jsonlog[i]["dt_dif"]*1000) if jsonlog[i]["dt_dif"] < 1000 else 1000
 
         return {
             "log": jsonlog,

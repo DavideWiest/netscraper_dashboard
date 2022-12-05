@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ title }}{% endblock %}
+{% block header %}{{ title }}{% endblock %}
+
+{% block htmlcontents %}
+
+<div id="settings-section">
+    <div class="w-screeen flex flex-col items-center justify-center my-24 mt-28 md:mt-40">
+        <h1 class="text-2xl md:text-3xl max-w-lg text-center">
+            Full JSON Log:
+        </h1>
+    </div>
+</div>
+
+<div class="flex flex-col">
+    <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+        <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
+            <div class="overflow-hidden">
+                <h2 class="text-b700 my-8 text-2xl md:text-3xl px-6">
+                    Latest scraped sites
+                </h2>
+                <table class="min-w-full">
+                    <tbody>
+                        <thead class="border-b">
+                            <tr>
+                              <th scope="col" class="text-xs font-medium text-gray-900 px-6 py-4 text-left whitespace-nowrap">
+                                Completion time
+                              </th>
+                              <th scope="col" class="text-xs font-medium text-gray-900 px-6 py-4 text-left whitespace-nowrap">
+                                Response time
+                              </th>
+                            </tr>
+                          </thead>
+                        {% for logentry in log %}
+                        <tr class="border-b">
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900" style="width: 7rem;">
+                                <div class="w-full bg-sky-100 inline-block" style="width: 5rem;">
+                                    <div class="h-2 bg-primary rounded-full" style="width: calc(5rem * {{ logentry.dt_dif }} / 10000);"></div>
+                                </div>
+                                <p class="inline-block text-xs ml-1">{{ logentry.dt_dif }}ms</p>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900" style="width: 7rem;">
+                                <div class="w-full bg-sky-100 inline-block" style="width: 5rem;">
+                                    <div class="h-2 bg-primary rounded-full" style="width: calc(5rem * {{ logentry.ResponseTime }} / 1000);"></div>
+                                </div>
+                                <p class="inline-block text-xs ml-1">{{ logentry.ResponseTime }}ms</p>
+                            </td>
+                            <td class="text-lg text-gray-900 text-b500 px-6 py-4 whitespace-nowrap">
+                                {{ logentry.URL }}
+                            </td>
+                            <td class="text-sm text-gray-900 text-b500 px-6 py-4 whitespace-nowrap">
+                                <div id="flex" class="justify-center items-center">
+                                    {{ logentry.DateTime }}
+                                </div>
+                            </td>
+                            <td class="text-sm text-gray-900 text-b500 px-6 py-4 whitespace-nowrap">
+                                <div id="flex" class="justify-center items-center">
+                                    {% if logentry.Status == True %}
+                                        <p class="rounded-full px-5 py-2 bg-green-200 text-green-600 inline-block text-xs md:text-sm w-20 md:w-24 text-center">
+                                            Passed
+                                        </p>
+                                    {% else %}
+                                        <p class="rounded-full px-5 py-2 bg-red-200 text-red-800 inline-block text-xs md:text-sm w-20 md:w-24 text-center">
+                                            Failed
+                                        </p>
+                                    {% endif%}
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
+
+{% block scripts %}
+
+{% endblock %}

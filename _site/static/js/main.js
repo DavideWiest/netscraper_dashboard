@@ -84,7 +84,7 @@ function makechart2() {
     });
 }
 
-makechart2()
 makechart1()
+makechart2()
 
 
