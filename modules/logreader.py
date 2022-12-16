@@ -1,6 +1,7 @@
 from pathlib import Path
 import json
 import psutil
+import shutil
 from datetime import datetime
 
 class LogReader():
