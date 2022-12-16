@@ -52,7 +52,7 @@ class LogReader():
             "cpu": psutil.cpu_percent(),
             "ram": psutil.virtual_memory().percent,
             "disk": float(f"{used/free*100:.2f}"),
-            "disk-gb": total // (2**30))
+            "disk_gb": round(total * 1.024) // (2**30))
         }
 
         settings["StartedScraping"] = settings["StartedScraping"].replace("T", " ").split(".")[0]
