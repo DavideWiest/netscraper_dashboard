@@ -45,9 +45,12 @@ class LogReader():
     def get_complete_stats(self):
         jsonlog = self.openlog(self.json_path)
         settings = self.openlog(self.settings_path)
+        
+        total, used, free = shutil.disk_usage("/")
         cstats = {
             "cpu": psutil.cpu_percent(),
-            "ram": psutil.virtual_memory().percent
+            "ram": psutil.virtual_memory().percent,
+            "disk": float(f"{used/free*100:.2f}")
         }
 
         settings["StartedScraping"] = settings["StartedScraping"].replace("T", " ").split(".")[0]
